@@ -1,0 +1,24 @@
+{
+  "name": "hortinjaapi",
+  "version": "1.0.0",
+  "description": "API para o projeto final do Kazap Academy",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AmandaMoreiraMoraes/HortinjaAPI.git"
+  },
+  "author": "Amanda Moraes",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AmandaMoreiraMoraes/HortinjaAPI/issues"
+  },
+  "homepage": "https://github.com/AmandaMoreiraMoraes/HortinjaAPI#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "helmet": "^4.6.0"
+  }
+}
