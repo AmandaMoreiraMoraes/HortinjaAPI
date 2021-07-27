@@ -1,5 +1,6 @@
 const httpStatus = require('http-status')
 const { Category} = require('../models')
+const {safeObjectId} = require('../helpers')
 
     
 const methods = {
@@ -32,6 +33,26 @@ const methods = {
             response.status(httpStatus.CREATED).json(insertedObject)
         } catch (error) {
             response.status(httpStatus.INTERNAL_SERVER_ERROR).json(error)
+        }
+    },
+    async findCategory(request, response){
+        
+        const {id} = request.params
+
+        const convertedObjectId = safeObjectId(id)
+
+        const category = new Category()
+
+        try {
+
+            const categoryToReturn = await category.findOne({_id: convertedObjectId})
+
+            response.status(httpStatus.OK).json(categoryToReturn)
+            
+        } catch (error) {
+
+            response.status(httpStatus.INTERNAL_SERVER_ERROR).json(error)
+            
         }
     }
 }
