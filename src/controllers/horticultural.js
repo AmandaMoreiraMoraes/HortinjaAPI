@@ -7,10 +7,13 @@ const methods = {
     async list(request, response) {
         const horticultural = new Horticultural()
 
-        try {
-            const horticulturals = await horticultural.list({deletedAt: {$exists: false}})
+          try {
+            const horticulturals = await horticultural.list({ldeletedAt: {$exists: false}})
 
             response.status(httpStatus.OK).json(horticulturals)
+              
+    
+                response.status(httpStatus.OK).json(horticulturals)
         } catch(error) {
             response.status(httpStatus.INTERNAL_SERVER_ERROR).json(error)
         }
