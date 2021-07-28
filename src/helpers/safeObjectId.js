@@ -4,9 +4,9 @@ const ObjectId = require('mongodb').ObjectId
 const safeObjectId = id => {
     try {
 
-        const convertId = ObjectId(id)
+        const convertedId = ObjectId(id)
 
-        return convertId
+        return convertedId
         
     } catch (error) {
 

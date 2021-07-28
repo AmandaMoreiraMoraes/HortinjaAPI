@@ -8,7 +8,7 @@ const methods = {
         const horticultural = new Horticultural()
 
         try {
-            const horticulturals = await horticultural.list()
+            const horticulturals = await horticultural.list({deletedAt: {$exists: false}})
 
             response.status(httpStatus.OK).json(horticulturals)
         } catch(error) {
@@ -60,19 +60,70 @@ const methods = {
         const convertedObjectId = safeObjectId(id)
 
         const horticultural = new Horticultural()
+            
+        
 
         try {
 
             const horticulturalToReturn = await horticultural.findOne({_id: convertedObjectId})
 
-            response.status(httpStatus.OK).json(horticulturalToReturn)
+            
+        
+
+                response.status(httpStatus.OK).json(horticulturalToReturn)
+
+                
+           
             
         } catch (error) {
 
-            response.status(httpStatus.INTERNAL_SERVER_ERROR).json(error)
+            response.status(httpStatus.INTERNAL_SERVER_ERROR).json()
             
         }
+
+     
+    }, 
+
+   async update(request, response){
+    const { id } = request.params
+    const convertedObjectId = safeObjectId(id)
+    const { name, measurement, averagePrice, shade, description, image, categoryId } = request.body
+
+    if (!measurement || !name || !averagePrice || !image || !categoryId) {
+        return response.status(httpStatus.BAD_REQUEST).json({ error: 'The fields "image", "categoryId", "averagePrice", "name" and "measurement" are required.' })
     }
+
+    const horticultural = new Horticultural()
+
+    try {
+        const updatedObject = await horticultural.updateOne({ _id: convertedObjectId }, { image, name, averagePrice, measurement, categoryId, shade, description })
+        
+        response.status(httpStatus.OK).json(updatedObject)
+    } catch (error) {
+        response.status(httpStatus.INTERNAL_SERVER_ERROR).json(error)
+    }
+   
+ },
+
+ async destroy (request, response){
+
+    const { id } = request.params
+    const convertedObjectId = safeObjectId(id)
+    
+
+    
+
+    const horticultural = new Horticultural()
+
+    try {
+        const destroyedObject = await horticultural.updateOne({ _id: convertedObjectId }, { deletedAt: true })
+        
+        response.status(httpStatus.NO_CONTENT).json()
+    } catch (error) {
+        response.status(httpStatus.INTERNAL_SERVER_ERROR).json(error)
+    }
+
+ }
 
     
 }
